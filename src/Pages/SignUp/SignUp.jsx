@@ -48,7 +48,7 @@ const SignUp = () => {
           <div className="flex justify-center">
             <form
               onSubmit={handleSubmit(handleSignUp)}
-              className="flex-grow space-y-3 bg-sky-400 w-4/5 rounded-md p-5"
+              className="flex-grow space-y-3 bg-sky-400 w-96 rounded-md p-5"
             >
               <div>
                 <label
@@ -93,16 +93,37 @@ const SignUp = () => {
                   type={showPassword ? "text" : "password"}
                   name="password"
                   id="password"
-                  className="border  rounded-md  w-full px-3 py-2 outline-0 "
+                  className="border  rounded-md  w-full  px-3 py-2 outline-0 "
                   placeholder="******* "
                   {...register("password", {
-                    required: true,
-                    minLength: 6,
-                    maxLength: 20,
-                    pattern: /(?=.*[A-Z])(?=.*[@$!%*#?&^_-]).{6,}/,
+                    required: "Password is required.",
+                    minLength: {
+                      value: 6,
+                      message: "Password must be at least 6 characters long.",
+                    },
+                    pattern: {
+                      value: /(?=.*[A-Z])(?=.*[@$!%*#?&^_-]).{6,}/,
+                      message:
+                        "Password must contain at least one uppercase letter and one special character.",
+                    },
                   })}
                 />
-                {errors.password && <span>{errors.password}</span>}
+
+                {errors.password?.type === "required" && (
+                  <span className="text-red-500 text-sm">
+                    {errors.password.message}
+                  </span>
+                )}
+                {errors.password?.type === "minLength" && (
+                  <span className="text-red-500 text-sm">
+                    {errors.password.message}
+                  </span>
+                )}
+                {errors.password?.type === "pattern" && (
+                  <span className="text-red-500 text-sm">
+                    {errors.password.message}
+                  </span>
+                )}
                 <button
                   type="button"
                   className=" absolute top-12 right-4  "
@@ -132,7 +153,11 @@ const SignUp = () => {
                     },
                   })}
                 />
-                {errors.confirm && <span>{errors.confirm.message}</span>}
+                {errors.confirm && (
+                  <span className="text-red-500 text-sm">
+                    {errors.confirm.message}
+                  </span>
+                )}
                 <button
                   type="button"
                   className=" absolute top-12 right-4  "

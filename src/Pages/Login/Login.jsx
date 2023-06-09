@@ -8,9 +8,11 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import useAuth from "../../hooks/useAuth";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const { user, loading, setLoading, GoogleSignIn } = useAuth();
 
   const handleTogglePassword = () => {
     setShowPassword(!showPassword);
@@ -24,6 +26,10 @@ const Login = () => {
 
   const handleLogin = (data) => {
     console.log(data);
+  };
+
+  const handleGoogleSignIn = () => {
+    GoogleSignIn();
   };
 
   return (
@@ -45,7 +51,7 @@ const Login = () => {
           <div className="flex justify-center">
             <form
               onSubmit={handleSubmit(handleLogin)}
-              className="flex-grow space-y-3 bg-sky-400 w-4/5 rounded-md p-5"
+              className="flex-grow space-y-3 bg-sky-400 w-80 rounded-md p-5"
             >
               <div>
                 <label
@@ -102,7 +108,10 @@ const Login = () => {
                 here
               </p>
               <div className="divider py-5 ">OR</div>
-              <div className="flex justify-center items-center  border-slate-400 m-3 p-2 rounded-md space-x-2 cursor-pointer bg-slate-200 hover:bg-slate-400  outline-0">
+              <div
+                onClick={handleGoogleSignIn}
+                className="flex justify-center items-center  border-slate-400 m-3 p-2 rounded-md space-x-2 cursor-pointer bg-slate-200 hover:bg-slate-400  outline-0"
+              >
                 <FcGoogle size={32}></FcGoogle>
                 <p className="font-semibold text-lg">Continue With Google</p>
               </div>
