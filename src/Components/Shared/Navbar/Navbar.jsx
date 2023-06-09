@@ -5,7 +5,9 @@ import { Link } from "react-router-dom";
 const Navbar = () => {
   const navOptions = (
     <>
-      <li>Home</li>
+      <Link to="/">
+        <li>Home</li>
+      </Link>
       <li>Instructors</li>
       <li>Classes</li>
       <li>Dashboard</li>
