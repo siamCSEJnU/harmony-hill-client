@@ -6,13 +6,14 @@ import loginImage from "../../assets/login/login.png";
 import { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import useAuth from "../../hooks/useAuth";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const { user, loading, setLoading, GoogleSignIn } = useAuth();
+  const { setLoading, GoogleSignIn } = useAuth();
+  const navigate = useNavigate();
 
   const handleTogglePassword = () => {
     setShowPassword(!showPassword);
@@ -29,7 +30,15 @@ const Login = () => {
   };
 
   const handleGoogleSignIn = () => {
-    GoogleSignIn();
+    GoogleSignIn()
+      .then((result) => {
+        console.log(result.user);
+        navigate("/");
+      })
+      .catch((error) => {
+        setLoading(false);
+        console.log(error.message);
+      });
   };
 
   return (

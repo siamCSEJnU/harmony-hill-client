@@ -1,8 +1,10 @@
 import Container from "../Container/Container";
 import logo from "../../../../public/logo/logo1.png";
 import { Link } from "react-router-dom";
+import useAuth from "../../../hooks/useAuth";
 
 const Navbar = () => {
+  const { user, logOut } = useAuth();
   const navOptions = (
     <>
       <Link to="/">
@@ -13,6 +15,16 @@ const Navbar = () => {
       <li>Dashboard</li>
     </>
   );
+
+  const handleLogOut = () => {
+    logOut()
+      .then(() => {
+        console.log("Signed Out Successfuly");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   return (
     <div className="py-2 bg-sky-300 w-full fixed z-10">
       <Container>
@@ -57,11 +69,34 @@ const Navbar = () => {
             </ul>
           </div>
           <div className="navbar-end">
-            <Link to="/login">
-              <button className="btn bg-emerald-400 border-emerald-400">
-                Login
-              </button>
-            </Link>
+            {user ? (
+              <div className="flex items-center gap-2">
+                <div
+                  className="lg:tooltip tooltip-top"
+                  data-tip={user.displayName}
+                >
+                  <img
+                    src={user.photoURL}
+                    width={60}
+                    className="rounded-full"
+                    alt="userphoto"
+                  />
+                </div>
+
+                <button
+                  onClick={handleLogOut}
+                  className="btn bg-emerald-400 border-emerald-400"
+                >
+                  LogOut
+                </button>
+              </div>
+            ) : (
+              <Link to="/login">
+                <button className="btn bg-emerald-400 border-emerald-400">
+                  Login
+                </button>
+              </Link>
+            )}
           </div>
         </div>
       </Container>

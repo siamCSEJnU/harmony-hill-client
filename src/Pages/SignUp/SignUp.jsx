@@ -4,13 +4,16 @@ import signupLogo from "../../assets/signup/SignUpLogo.png";
 import signupImage from "../../assets/signup/SignUp-Image.png";
 import SectionTItle from "../../Components/Shared/SectionTitle/SectionTItle";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import useAuth from "../../hooks/useAuth";
 
 const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const { GoogleSignIn, setLoading } = useAuth();
+  const navigate = useNavigate();
 
   const handleTogglePassword = () => {
     setShowPassword(!showPassword);
@@ -28,6 +31,18 @@ const SignUp = () => {
       return;
     }
     console.log(data);
+  };
+
+  const handleGoogleSignIn = () => {
+    GoogleSignIn()
+      .then((result) => {
+        console.log(result.user);
+        navigate("/");
+      })
+      .catch((error) => {
+        setLoading(false);
+        console.log(error.message);
+      });
   };
   return (
     <div>
@@ -179,7 +194,10 @@ const SignUp = () => {
                 here
               </p>
               <div className="divider py-5 ">OR</div>
-              <div className="flex justify-center items-center  border-slate-400 m-3 p-2 rounded-md space-x-2 cursor-pointer bg-slate-200 hover:bg-slate-400  outline-0">
+              <div
+                onClick={handleGoogleSignIn}
+                className="flex justify-center items-center  border-slate-400 m-3 p-2 rounded-md space-x-2 cursor-pointer bg-slate-200 hover:bg-slate-400  outline-0"
+              >
                 <FcGoogle size={32}></FcGoogle>
                 <p className="font-semibold text-lg">Continue With Google</p>
               </div>
