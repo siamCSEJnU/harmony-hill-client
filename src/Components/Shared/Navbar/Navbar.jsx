@@ -35,7 +35,7 @@ const Navbar = () => {
               </label>
               <ul
                 tabIndex={0}
-                className="menu menu-sm dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
+                className="menu menu-sm dropdown-content mt-3 p-2 shadow bg-sky-300 rounded-box w-52 space-y-2 font-semibold text-lg "
               >
                 {navOptions}
               </ul>
@@ -53,7 +53,7 @@ const Navbar = () => {
             </ul>
           </div>
           <div className="navbar-end">
-            <Link>
+            <Link to="/login">
               <button className="btn">Login</button>
             </Link>
           </div>
