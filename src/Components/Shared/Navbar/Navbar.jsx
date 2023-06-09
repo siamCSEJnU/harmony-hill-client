@@ -42,12 +42,14 @@ const Navbar = () => {
                 {navOptions}
               </ul>
             </div>
-            <div className="flex justify-center items-center gap-2">
-              <h2 className="order-2 text-4xl font-bold text-sky-950 ">
-                Harmony <br /> Hill
-              </h2>
-              <img src={logo} height="80" width="80" alt="logo" />
-            </div>
+            <Link to="/">
+              <div className="flex justify-center items-center gap-2">
+                <h2 className="order-2 text-4xl font-bold text-sky-950 ">
+                  Harmony <br /> Hill
+                </h2>
+                <img src={logo} height="80" width="80" alt="logo" />
+              </div>
+            </Link>
           </div>
           <div className="navbar-center hidden lg:flex ">
             <ul className="menu menu-horizontal px-1 space-x-5 font-semibold text-lg ">
@@ -56,7 +58,9 @@ const Navbar = () => {
           </div>
           <div className="navbar-end">
             <Link to="/login">
-              <button className="btn">Login</button>
+              <button className="btn bg-emerald-400 border-emerald-400">
+                Login
+              </button>
             </Link>
           </div>
         </div>

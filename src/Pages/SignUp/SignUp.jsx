@@ -1,15 +1,15 @@
 import { Helmet } from "react-helmet-async";
-import SectionTItle from "../../Components/Shared/SectionTitle/SectionTItle";
-import loginLogo from "../../assets/login/loginLogo.png";
 import Container from "../../Components/Shared/Container/Container";
-import loginImage from "../../assets/login/login.png";
+import signupLogo from "../../assets/signup/SignUpLogo.png";
+import signupImage from "../../assets/signup/SignUp-Image.png";
+import SectionTItle from "../../Components/Shared/SectionTitle/SectionTItle";
+import { useForm } from "react-hook-form";
+import { Link } from "react-router-dom";
+import { FcGoogle } from "react-icons/fc";
 import { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { FcGoogle } from "react-icons/fc";
-import { Link } from "react-router-dom";
-import { useForm } from "react-hook-form";
 
-const Login = () => {
+const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   const handleTogglePassword = () => {
@@ -22,29 +22,28 @@ const Login = () => {
     // formState: { errors },
   } = useForm();
 
-  const handleLogin = (data) => {
+  const handleSignUp = (data) => {
     console.log(data);
   };
-
   return (
     <div>
       <Helmet>
-        <title>Harmony Hill | Login</title>
+        <title>Harmony Hill | SignUp</title>
       </Helmet>
       <Container>
         <div className="flex justify-center items-center gap-2">
-          <img src={loginLogo} alt="loginLogo" height="40" width="40" />
+          <img src={signupLogo} alt="loginLogo" height="40" width="40" />
           <h2>
-            <SectionTItle heading="Login Now !"></SectionTItle>
+            <SectionTItle heading="Sign Up Here!"></SectionTItle>
           </h2>
         </div>
 
         <div className="flex justify-center items-center flex-wrap">
-          <img src={loginImage} className="w-1/2" alt="loginImage" />
+          <img src={signupImage} className="w-1/2" alt="loginImage" />
 
           <div className="flex justify-center">
             <form
-              onSubmit={handleSubmit(handleLogin)}
+              onSubmit={handleSubmit(handleSignUp)}
               className="flex-grow space-y-3 bg-sky-400 w-4/5 rounded-md p-5"
             >
               <div>
@@ -61,6 +60,22 @@ const Login = () => {
                   className="border  rounded-md w-full px-3 py-2 border-sky-300 focus:outline-0  "
                   placeholder="Enter Your Email Here "
                   {...register("email", { required: true })}
+                />
+              </div>
+              <div>
+                <label
+                  htmlFor="photoUrl"
+                  className="block mb-2 text-lg font-semibold "
+                >
+                  Photo URL
+                </label>
+                <input
+                  type="text"
+                  name="photoUrl"
+                  id="photoUrl"
+                  className="border  rounded-md w-full px-3 py-2 border-sky-300 focus:outline-0  "
+                  placeholder="Photo URL "
+                  {...register("photoUrl", { required: true })}
                 />
               </div>
               <div className="relative">
@@ -86,15 +101,38 @@ const Login = () => {
                   {showPassword ? <FaEyeSlash></FaEyeSlash> : <FaEye></FaEye>}
                 </button>
               </div>
+              <div className="relative">
+                <label
+                  htmlFor="confirm"
+                  className="block mb-2 text-lg font-semibold  "
+                >
+                  Confirm Password
+                </label>
+                <input
+                  type={showPassword ? "text" : "password"}
+                  name="confirm"
+                  id="confirm"
+                  className="border  rounded-md  w-full px-3 py-2 outline-0 "
+                  placeholder="******* "
+                  {...register("confirm", { required: true })}
+                />
+                <button
+                  type="button"
+                  className=" absolute top-12 right-4  "
+                  onClick={handleTogglePassword}
+                >
+                  {showPassword ? <FaEyeSlash></FaEyeSlash> : <FaEye></FaEye>}
+                </button>
+              </div>
               <input
                 type="submit"
-                value="Sign In"
+                value="Sign Up"
                 className="btn w-full bg-emerald-400 border-emerald-400"
               />
               <p className="text-sm">
-                Don't Have Account?{" "}
-                <Link className="text-slate-200" to="/signup">
-                  Sign Up
+                Already Have an Account?{" "}
+                <Link className="text-slate-200" to="/login">
+                  Sign In
                 </Link>{" "}
                 here
               </p>
@@ -111,4 +149,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default SignUp;
