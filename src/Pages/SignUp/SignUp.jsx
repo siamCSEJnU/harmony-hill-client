@@ -19,10 +19,14 @@ const SignUp = () => {
   const {
     register,
     handleSubmit,
-    // formState: { errors },
+    formState: { errors },
+    watch,
   } = useForm();
 
   const handleSignUp = (data) => {
+    if (data.password !== data.confirm) {
+      return;
+    }
     console.log(data);
   };
   return (
@@ -91,8 +95,14 @@ const SignUp = () => {
                   id="password"
                   className="border  rounded-md  w-full px-3 py-2 outline-0 "
                   placeholder="******* "
-                  {...register("password", { required: true })}
+                  {...register("password", {
+                    required: true,
+                    minLength: 6,
+                    maxLength: 20,
+                    pattern: /(?=.*[A-Z])(?=.*[@$!%*#?&^_-]).{6,}/,
+                  })}
                 />
+                {errors.password && <span>{errors.password}</span>}
                 <button
                   type="button"
                   className=" absolute top-12 right-4  "
@@ -114,8 +124,15 @@ const SignUp = () => {
                   id="confirm"
                   className="border  rounded-md  w-full px-3 py-2 outline-0 "
                   placeholder="******* "
-                  {...register("confirm", { required: true })}
+                  {...register("confirm", {
+                    required: true,
+                    validate: {
+                      matchesPassword: (value) =>
+                        value === watch("password") || "Password mismatched",
+                    },
+                  })}
                 />
+                {errors.confirm && <span>{errors.confirm.message}</span>}
                 <button
                   type="button"
                   className=" absolute top-12 right-4  "

@@ -19,7 +19,7 @@ const Login = () => {
   const {
     register,
     handleSubmit,
-    // formState: { errors },
+    formState: { errors },
   } = useForm();
 
   const handleLogin = (data) => {
@@ -58,7 +58,7 @@ const Login = () => {
                   type="email"
                   name="email"
                   id="email"
-                  className="border  rounded-md w-full px-3 py-2 border-sky-300 focus:outline-0  "
+                  className="border  rounded-md w-full px-3 py-2 border-sky-400 focus:outline-0  "
                   placeholder="Enter Your Email Here "
                   {...register("email", { required: true })}
                 />
@@ -86,6 +86,9 @@ const Login = () => {
                   {showPassword ? <FaEyeSlash></FaEyeSlash> : <FaEye></FaEye>}
                 </button>
               </div>
+              {(errors.email || errors.password) && (
+                <span>{errors.email.message || errors.password.message}</span>
+              )}
               <input
                 type="submit"
                 value="Sign In"
