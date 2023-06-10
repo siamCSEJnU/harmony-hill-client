@@ -11,11 +11,18 @@ import instructor from "../assets/Dashboard/Instructor-dashboard.png";
 import student from "../assets/Dashboard/student-dashboard.png";
 import selected from "../assets/Dashboard/selected.png";
 import enrolled from "../assets/Dashboard/enrolled.png";
+import useAdmin from "../hooks/useAdmin";
+import useInstructor from "../hooks/useInstructor";
+import useStudent from "../hooks/useStudent";
 
 const Dashboard = () => {
-  const isAdmin = true;
-  const isStudent = false;
-  const isInstructor = false;
+  // const isAdmin = true;
+  // const isStudent = false;
+  // const isInstructor = false;
+  const [isAdmin] = useAdmin();
+  const [isInstructor] = useInstructor();
+  const [isStudent] = useStudent();
+
   return (
     <div>
       <Helmet>
