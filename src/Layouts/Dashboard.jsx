@@ -27,7 +27,9 @@ const Dashboard = () => {
           <div className="drawer-content">
             {/* Page content here */}
 
-            <Outlet></Outlet>
+            <div className=" py-10">
+              <Outlet></Outlet>
+            </div>
             <label
               htmlFor="my-drawer"
               className="btn btn-primary drawer-button lg:hidden"
@@ -51,7 +53,7 @@ const Dashboard = () => {
                       <h3>Manage Classes</h3>
                     </div>
                   </NavLink>
-                  <NavLink>
+                  <NavLink to="/dashboard/manageUsers">
                     <div className="flex items-center gap-2 my-5">
                       <img src={manageUsers} width={26} alt="manageLogo" />
                       <h3>Manage Users</h3>
