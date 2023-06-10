@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import adminLogo from "../../../assets/Dashboard/admin-mk.png";
 import instructorLogo from "../../../assets/Dashboard/instructor-mk.png";
 import SectionTItle from "../../../Components/Shared/SectionTitle/SectionTItle";
+import Swal from "sweetalert2";
 
 const ManageUsers = () => {
   const [axiosSecure] = useAxiosSecure();
@@ -12,6 +13,67 @@ const ManageUsers = () => {
 
     return res.data;
   });
+
+  const handleMakeAdmin = (user) => {
+    Swal.fire({
+      title: "Are you sure ?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, make admin!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        fetch(`http://localhost:5000/users/admin/${user._id}`, {
+          method: "PATCH",
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.modifiedCount) {
+              refetch();
+              Swal.fire({
+                position: "center",
+                icon: "success",
+                title: `${user.name} is Admin now!!`,
+                showConfirmButton: false,
+                timer: 1500,
+              });
+            }
+          });
+      }
+    });
+  };
+  const handleMakeInstructor = (user) => {
+    Swal.fire({
+      title: "Are you sure ?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, make instructor!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        fetch(`http://localhost:5000/users/instructor/${user._id}`, {
+          method: "PATCH",
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.modifiedCount) {
+              refetch();
+              Swal.fire({
+                position: "center",
+                icon: "success",
+                title: `${user.name} is Instructor now!!`,
+                showConfirmButton: false,
+                timer: 1500,
+              });
+            }
+          });
+      }
+    });
+  };
   return (
     <div>
       <Helmet>
@@ -52,14 +114,17 @@ const ManageUsers = () => {
                 <td>
                   <div
                     onClick={() => handleMakeAdmin(user)}
-                    className="flex justify-center"
+                    className="flex justify-center cursor-pointer"
                   >
                     {" "}
                     <img src={adminLogo} alt="adminlogo" width={25} />
                   </div>
                 </td>
                 <td>
-                  <div className="flex justify-center">
+                  <div
+                    onClick={() => handleMakeInstructor(user)}
+                    className="flex justify-center cursor-pointer"
+                  >
                     {" "}
                     <img src={instructorLogo} alt="instructorlogo" width={25} />
                   </div>
@@ -74,20 +139,3 @@ const ManageUsers = () => {
 };
 
 export default ManageUsers;
-// Swal.fire({
-//     title: 'Are you sure?',
-//     text: "You won't be able to revert this!",
-//     icon: 'warning',
-//     showCancelButton: true,
-//     confirmButtonColor: '#3085d6',
-//     cancelButtonColor: '#d33',
-//     confirmButtonText: 'Yes, delete it!'
-//   }).then((result) => {
-//     if (result.isConfirmed) {
-//       Swal.fire(
-//         'Deleted!',
-//         'Your file has been deleted.',
-//         'success'
-//       )
-//     }
-//   })
