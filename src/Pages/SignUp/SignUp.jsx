@@ -9,14 +9,22 @@ import { FcGoogle } from "react-icons/fc";
 import { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import useAuth from "../../hooks/useAuth";
+import { toast } from "react-toastify";
+import { ImSpinner4 } from "react-icons/im";
 
 const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const { GoogleSignIn, setLoading } = useAuth();
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const { loading, GoogleSignIn, setLoading, createUser, updateUserProfile } =
+    useAuth();
   const navigate = useNavigate();
 
-  const handleTogglePassword = () => {
-    setShowPassword(!showPassword);
+  const handleTogglePassword = (field) => {
+    if (field === "password") {
+      setShowPassword(!showPassword);
+    } else if (field === "confirm") {
+      setShowConfirmPassword(!showConfirmPassword);
+    }
   };
 
   const {
@@ -24,13 +32,33 @@ const SignUp = () => {
     handleSubmit,
     formState: { errors },
     watch,
+    reset,
   } = useForm();
 
   const handleSignUp = (data) => {
     if (data.password !== data.confirm) {
       return;
     }
-    console.log(data);
+    createUser(data.email, data.password)
+      .then((result) => {
+        console.log(result.user);
+        updateUserProfile(data.name, data.photoURL)
+          .then(() => {
+            console.log("profile updated");
+            toast.success("Your Profile Updated Successfuly", {
+              autoClose: 1000,
+            });
+            reset();
+          })
+          .catch((error) => {
+            setLoading(false);
+            console.log(error);
+          });
+      })
+      .catch((error) => {
+        setLoading(false);
+        console.log(error);
+      });
   };
 
   const handleGoogleSignIn = () => {
@@ -67,19 +95,22 @@ const SignUp = () => {
             >
               <div>
                 <label
-                  htmlFor="email"
+                  htmlFor="name"
                   className="block mb-2 text-lg font-semibold "
                 >
-                  Email Address
+                  Your Name
                 </label>
                 <input
-                  type="email"
-                  name="email"
-                  id="email"
+                  type="text"
+                  name="name"
+                  id="name"
                   className="border  rounded-md w-full px-3 py-2 border-sky-300 focus:outline-0  "
-                  placeholder="Enter Your Email Here "
-                  {...register("email", { required: true })}
+                  placeholder="Your Name "
+                  {...register("name", { required: true })}
                 />
+                {errors.name && (
+                  <span className="text-red-600 text-sm">Name is required</span>
+                )}
               </div>
               <div>
                 <label
@@ -94,9 +125,36 @@ const SignUp = () => {
                   id="photoUrl"
                   className="border  rounded-md w-full px-3 py-2 border-sky-300 focus:outline-0  "
                   placeholder="Photo URL "
-                  {...register("photoUrl", { required: true })}
+                  {...register("photoURL", { required: true })}
                 />
+                {errors.photoURL && (
+                  <span className="text-red-600 text-sm">
+                    photo url is required
+                  </span>
+                )}
               </div>
+              <div>
+                <label
+                  htmlFor="email"
+                  className="block mb-2 text-lg font-semibold "
+                >
+                  Email Address
+                </label>
+                <input
+                  type="email"
+                  name="email"
+                  id="email"
+                  className="border  rounded-md w-full px-3 py-2 border-sky-300 focus:outline-0  "
+                  placeholder="Your Email "
+                  {...register("email", { required: true })}
+                />
+                {errors.email && (
+                  <span className="text-red-600 text-sm">
+                    Email is required
+                  </span>
+                )}
+              </div>
+
               <div className="relative">
                 <label
                   htmlFor="password"
@@ -142,7 +200,7 @@ const SignUp = () => {
                 <button
                   type="button"
                   className=" absolute top-12 right-4  "
-                  onClick={handleTogglePassword}
+                  onClick={() => handleTogglePassword("password")}
                 >
                   {showPassword ? <FaEyeSlash></FaEyeSlash> : <FaEye></FaEye>}
                 </button>
@@ -155,7 +213,7 @@ const SignUp = () => {
                   Confirm Password
                 </label>
                 <input
-                  type={showPassword ? "text" : "password"}
+                  type={showConfirmPassword ? "text" : "password"}
                   name="confirm"
                   id="confirm"
                   className="border  rounded-md  w-full px-3 py-2 outline-0 "
@@ -176,16 +234,25 @@ const SignUp = () => {
                 <button
                   type="button"
                   className=" absolute top-12 right-4  "
-                  onClick={handleTogglePassword}
+                  onClick={() => handleTogglePassword("confirm")}
                 >
-                  {showPassword ? <FaEyeSlash></FaEyeSlash> : <FaEye></FaEye>}
+                  {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
                 </button>
               </div>
-              <input
+
+              <button
                 type="submit"
-                value="Sign Up"
                 className="btn w-full bg-emerald-400 border-emerald-400"
-              />
+              >
+                {loading ? (
+                  <ImSpinner4
+                    className="animate-spin m-0 text-blue-700"
+                    size={32}
+                  ></ImSpinner4>
+                ) : (
+                  "Sign Up"
+                )}
+              </button>
               <p className="text-sm">
                 Already Have an Account?{" "}
                 <Link className="text-slate-200" to="/login">

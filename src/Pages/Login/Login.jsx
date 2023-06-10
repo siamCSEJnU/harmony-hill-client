@@ -6,27 +6,37 @@ import loginImage from "../../assets/login/login.png";
 import { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
+import { ImSpinner4 } from "react-icons/im";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import useAuth from "../../hooks/useAuth";
+import { toast } from "react-hot-toast";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const { setLoading, GoogleSignIn } = useAuth();
+  const { loading, setLoading, GoogleSignIn, signIn } = useAuth();
+  const [loginError, setLoginError] = useState("");
   const navigate = useNavigate();
 
   const handleTogglePassword = () => {
     setShowPassword(!showPassword);
   };
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
+  const { register, handleSubmit, reset } = useForm();
 
   const handleLogin = (data) => {
-    console.log(data);
+    signIn(data.email, data.password)
+      .then((result) => {
+        console.log(result.user);
+        reset();
+        navigate("/");
+      })
+      .catch((error) => {
+        setLoading(false);
+        setLoginError(error.message);
+        toast(loginError);
+        console.log(error);
+      });
   };
 
   const handleGoogleSignIn = () => {
@@ -93,6 +103,10 @@ const Login = () => {
                   placeholder="******* "
                   {...register("password", { required: true })}
                 />
+                {loginError && (
+                  <span className="text-red-600 text-sm">{loginError}</span>
+                )}
+
                 <button
                   type="button"
                   className=" absolute top-12 right-4  "
@@ -101,14 +115,19 @@ const Login = () => {
                   {showPassword ? <FaEyeSlash></FaEyeSlash> : <FaEye></FaEye>}
                 </button>
               </div>
-              {(errors.email || errors.password) && (
-                <span>{errors.email.message || errors.password.message}</span>
-              )}
-              <input
+              <button
                 type="submit"
-                value="Sign In"
                 className="btn w-full bg-emerald-400 border-emerald-400"
-              />
+              >
+                {loading ? (
+                  <ImSpinner4
+                    className="animate-spin m-auto text-blue-800"
+                    size={32}
+                  ></ImSpinner4>
+                ) : (
+                  "Sign In"
+                )}
+              </button>
               <p className="text-sm">
                 Don't Have Account?{" "}
                 <Link className="text-slate-200" to="/signup">
