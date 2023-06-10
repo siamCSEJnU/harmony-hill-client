@@ -7,7 +7,7 @@ import { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { ImSpinner4 } from "react-icons/im";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import useAuth from "../../hooks/useAuth";
 import { toast } from "react-hot-toast";
@@ -17,6 +17,9 @@ const Login = () => {
   const { loading, setLoading, GoogleSignIn, signIn } = useAuth();
   const [loginError, setLoginError] = useState("");
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const from = location.state?.from?.pathname || "/";
 
   const handleTogglePassword = () => {
     setShowPassword(!showPassword);
@@ -29,7 +32,7 @@ const Login = () => {
       .then((result) => {
         console.log(result.user);
         reset();
-        navigate("/");
+        navigate(from, { replace: true });
       })
       .catch((error) => {
         setLoading(false);
@@ -43,7 +46,7 @@ const Login = () => {
     GoogleSignIn()
       .then((result) => {
         console.log(result.user);
-        navigate("/");
+        navigate(from, { replace: true });
       })
       .catch((error) => {
         setLoading(false);

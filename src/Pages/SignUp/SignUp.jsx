@@ -4,7 +4,7 @@ import signupLogo from "../../assets/signup/SignUpLogo.png";
 import signupImage from "../../assets/signup/SignUp-Image.png";
 import SectionTItle from "../../Components/Shared/SectionTitle/SectionTItle";
 import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
@@ -18,6 +18,9 @@ const SignUp = () => {
   const { loading, GoogleSignIn, setLoading, createUser, updateUserProfile } =
     useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const from = location.state?.from?.pathname || "/";
 
   const handleTogglePassword = (field) => {
     if (field === "password") {
@@ -49,6 +52,7 @@ const SignUp = () => {
               autoClose: 1000,
             });
             reset();
+            navigate(from, { replace: true });
           })
           .catch((error) => {
             setLoading(false);
@@ -65,7 +69,7 @@ const SignUp = () => {
     GoogleSignIn()
       .then((result) => {
         console.log(result.user);
-        navigate("/");
+        navigate(from, { replace: true });
       })
       .catch((error) => {
         setLoading(false);

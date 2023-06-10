@@ -12,7 +12,10 @@ const Navbar = () => {
       </Link>
       <li>Instructors</li>
       <li>Classes</li>
-      <li>Dashboard</li>
+      <Link to="/dashboard">
+        {" "}
+        <li>Dashboard</li>
+      </Link>
     </>
   );
 
