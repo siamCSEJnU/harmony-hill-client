@@ -13,8 +13,8 @@ import selected from "../assets/Dashboard/selected.png";
 import enrolled from "../assets/Dashboard/enrolled.png";
 
 const Dashboard = () => {
-  const isAdmin = false;
-  const isStudent = true;
+  const isAdmin = true;
+  const isStudent = false;
   const isInstructor = false;
   return (
     <div>

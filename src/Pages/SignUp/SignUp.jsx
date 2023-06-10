@@ -5,18 +5,17 @@ import signupImage from "../../assets/signup/SignUp-Image.png";
 import SectionTItle from "../../Components/Shared/SectionTitle/SectionTItle";
 import { useForm } from "react-hook-form";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { FcGoogle } from "react-icons/fc";
 import { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import useAuth from "../../hooks/useAuth";
 import { toast } from "react-toastify";
 import { ImSpinner4 } from "react-icons/im";
+import SocialLogin from "../../Components/Shared/SocialLogin/SocialLogin";
 
 const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const { loading, GoogleSignIn, setLoading, createUser, updateUserProfile } =
-    useAuth();
+  const { loading, setLoading, createUser, updateUserProfile } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -39,6 +38,7 @@ const SignUp = () => {
   } = useForm();
 
   const handleSignUp = (data) => {
+    console.log(data);
     if (data.password !== data.confirm) {
       return;
     }
@@ -47,12 +47,28 @@ const SignUp = () => {
         console.log(result.user);
         updateUserProfile(data.name, data.photoURL)
           .then(() => {
-            console.log("profile updated");
-            toast.success("Your Profile Updated Successfuly", {
-              autoClose: 1000,
-            });
-            reset();
-            navigate(from, { replace: true });
+            const saveUser = {
+              name: data.name,
+              email: data.email,
+              photoURL: data.photoURL,
+            };
+            fetch("http://localhost:5000/users", {
+              method: "POST",
+              headers: {
+                "content-type": "application/json",
+              },
+              body: JSON.stringify(saveUser),
+            })
+              .then((res) => res.json())
+              .then((data) => {
+                if (data.insertedId) {
+                  toast.success("User Created Successfuly", {
+                    autoClose: 1000,
+                  });
+                  reset();
+                  navigate(from, { replace: true });
+                }
+              });
           })
           .catch((error) => {
             setLoading(false);
@@ -65,17 +81,6 @@ const SignUp = () => {
       });
   };
 
-  const handleGoogleSignIn = () => {
-    GoogleSignIn()
-      .then((result) => {
-        console.log(result.user);
-        navigate(from, { replace: true });
-      })
-      .catch((error) => {
-        setLoading(false);
-        console.log(error.message);
-      });
-  };
   return (
     <div>
       <Helmet>
@@ -106,7 +111,6 @@ const SignUp = () => {
                 </label>
                 <input
                   type="text"
-                  name="name"
                   id="name"
                   className="border  rounded-md w-full px-3 py-2 border-sky-300 focus:outline-0  "
                   placeholder="Your Name "
@@ -125,7 +129,6 @@ const SignUp = () => {
                 </label>
                 <input
                   type="text"
-                  name="photoUrl"
                   id="photoUrl"
                   className="border  rounded-md w-full px-3 py-2 border-sky-300 focus:outline-0  "
                   placeholder="Photo URL "
@@ -146,7 +149,6 @@ const SignUp = () => {
                 </label>
                 <input
                   type="email"
-                  name="email"
                   id="email"
                   className="border  rounded-md w-full px-3 py-2 border-sky-300 focus:outline-0  "
                   placeholder="Your Email "
@@ -264,14 +266,7 @@ const SignUp = () => {
                 </Link>{" "}
                 here
               </p>
-              <div className="divider py-5 ">OR</div>
-              <div
-                onClick={handleGoogleSignIn}
-                className="flex justify-center items-center  border-slate-400 m-3 p-2 rounded-md space-x-2 cursor-pointer bg-slate-200 hover:bg-slate-400  outline-0"
-              >
-                <FcGoogle size={32}></FcGoogle>
-                <p className="font-semibold text-lg">Continue With Google</p>
-              </div>
+              <SocialLogin></SocialLogin>
             </form>
           </div>
         </div>

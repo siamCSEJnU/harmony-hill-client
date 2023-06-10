@@ -5,16 +5,16 @@ import Container from "../../Components/Shared/Container/Container";
 import loginImage from "../../assets/login/login.png";
 import { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { FcGoogle } from "react-icons/fc";
 import { ImSpinner4 } from "react-icons/im";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import useAuth from "../../hooks/useAuth";
 import { toast } from "react-hot-toast";
+import SocialLogin from "../../Components/Shared/SocialLogin/SocialLogin";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const { loading, setLoading, GoogleSignIn, signIn } = useAuth();
+  const { loading, setLoading, signIn } = useAuth();
   const [loginError, setLoginError] = useState("");
   const navigate = useNavigate();
   const location = useLocation();
@@ -39,18 +39,6 @@ const Login = () => {
         setLoginError(error.message);
         toast(loginError);
         console.log(error);
-      });
-  };
-
-  const handleGoogleSignIn = () => {
-    GoogleSignIn()
-      .then((result) => {
-        console.log(result.user);
-        navigate(from, { replace: true });
-      })
-      .catch((error) => {
-        setLoading(false);
-        console.log(error.message);
       });
   };
 
@@ -138,14 +126,7 @@ const Login = () => {
                 </Link>{" "}
                 here
               </p>
-              <div className="divider py-5 ">OR</div>
-              <div
-                onClick={handleGoogleSignIn}
-                className="flex justify-center items-center  border-slate-400 m-3 p-2 rounded-md space-x-2 cursor-pointer bg-slate-200 hover:bg-slate-400  outline-0"
-              >
-                <FcGoogle size={32}></FcGoogle>
-                <p className="font-semibold text-lg">Continue With Google</p>
-              </div>
+              <SocialLogin></SocialLogin>
             </form>
           </div>
         </div>
