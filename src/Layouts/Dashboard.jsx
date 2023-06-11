@@ -53,7 +53,7 @@ const Dashboard = () => {
               ) : (
                 <div className="flex justify-center items-center">
                   <Lottie
-                    className="w-3/5 "
+                    className="w-3/5 mt-5"
                     animationData={dashAnim}
                     loop={true}
                   />
