@@ -20,6 +20,7 @@ const useInstructorsData = () => {
       (classItem) => classItem.email == instructor.email
     );
     return {
+      id: instructor._id,
       name: instructor.name,
       email: instructor.email,
       image: instructor.photoURL,

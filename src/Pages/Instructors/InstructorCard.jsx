@@ -1,3 +1,5 @@
+import { NavLink } from "react-router-dom";
+
 const InstructorCard = ({ item }) => {
   return (
     <div className="bg-emerald-300 p-3 rounded-md space-y-3 group">
@@ -12,9 +14,12 @@ const InstructorCard = ({ item }) => {
         <p>Number of classes : {item.totalClasses}</p>
       </div>
       <div className="text-center py-3">
-        <button className="btn bg-sky-400 outline-0 border-sky-400">
-          See Classes
-        </button>
+        <NavLink to={`/instructors/${item.id}`}>
+          {" "}
+          <button className="btn bg-sky-400 outline-0 border-sky-400">
+            See Classes
+          </button>
+        </NavLink>
       </div>
     </div>
   );
