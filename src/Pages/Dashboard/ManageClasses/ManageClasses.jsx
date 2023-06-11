@@ -117,7 +117,7 @@ const ManageClasses = () => {
         if (data.modifiedCount) {
           refetch();
           Swal.fire({
-            position: "top-end",
+            position: "center",
             icon: "success",
             title: "Feedback sent successfuly!",
             showConfirmButton: false,
@@ -195,7 +195,7 @@ const ManageClasses = () => {
                       }
                       className={`${
                         item.status === "accepted" || item.status === "denied"
-                          ? "bg-slate-500"
+                          ? "opacity-40"
                           : ""
                       }`}
                     >
@@ -212,7 +212,7 @@ const ManageClasses = () => {
                       }
                       className={`${
                         item.status === "denied" || item.status === "accepted"
-                          ? "bg-slate-500"
+                          ? "opacity-40"
                           : ""
                       }`}
                     >
@@ -224,6 +224,16 @@ const ManageClasses = () => {
                   <div className="text-center">
                     <button
                       onClick={() => handleOpenFeedbackModal(item)}
+                      disabled={
+                        item.status == "accepted" || item.status == "pending"
+                          ? true
+                          : false
+                      }
+                      className={`${
+                        item.status == "accepted" || item.status == "pending"
+                          ? "opacity-40"
+                          : ""
+                      }`}
                       // disabled={
                       //   item.status === "denied" || item.status === "accepted"
                       // }
@@ -241,12 +251,12 @@ const ManageClasses = () => {
       {/* Feedback Modal */}
       {showFeedbackModal && selectedClass && (
         <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
-          <div className="bg-white rounded-lg p-4">
+          <div className="bg-sky-200 rounded-lg p-4">
             <h2 className="text-xl font-bold mb-4">
               Send Feedback for {selectedClass.class}
             </h2>
             <textarea
-              className="w-full h-32 border border-gray-300 rounded-lg p-2 mb-4"
+              className="w-full h-32 border border-gray-300 outline-0 rounded-lg p-2 mb-4"
               placeholder="Enter your feedback"
               value={feedbackValue}
               onChange={(e) => setFeedbackValue(e.target.value)}

@@ -119,11 +119,12 @@ const Dashboard = () => {
                     </div>
                   </NavLink>
                   <NavLink
+                    to="/dashboard/myClasses"
                     className={({ isActive }) =>
                       isActive ? "bg-slate-300 py-2 pl-2 " : ""
                     }
                   >
-                    <div className="flex items-center gap-2 my-5">
+                    <div className="flex items-center gap-2 ">
                       <img src={myClasses} width={26} alt="myclasses" />
                       <h3>My Classes</h3>
                     </div>

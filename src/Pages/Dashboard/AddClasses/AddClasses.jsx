@@ -66,7 +66,7 @@ const AddClasses = () => {
   };
 
   return (
-    <div>
+    <div className="pt-20">
       <Helmet>
         <title>Harmony Hill | Add Classes</title>
       </Helmet>

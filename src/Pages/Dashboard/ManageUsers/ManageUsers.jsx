@@ -118,23 +118,50 @@ const ManageUsers = () => {
                   </div>
                 </td>
                 <td className="text-lg">{user.email}</td>
-                <td className="text-lg font-semibold">{user.role}</td>
+                <td
+                  className={`text-lg ${
+                    user.role == "admin"
+                      ? " font-bold text-blue-700"
+                      : user.role == "instructor"
+                      ? "font-bold text-green-700"
+                      : user.role == "student"
+                      ? "font-semibold"
+                      : ""
+                  }`}
+                >
+                  {user.role}
+                </td>
                 <td>
-                  <div
-                    onClick={() => handleMakeAdmin(user)}
-                    className="flex justify-center cursor-pointer"
-                  >
+                  <div className="flex justify-center cursor-pointer">
                     {" "}
-                    <img src={adminLogo} alt="adminlogo" width={25} />
+                    <button
+                      onClick={() => handleMakeAdmin(user)}
+                      disabled={user.role === "admin" ? true : false}
+                      className={`${
+                        user.role === "admin" ? " opacity-40" : ""
+                      }`}
+                    >
+                      <img src={adminLogo} alt="adminlogo" width={25} />
+                    </button>
                   </div>
                 </td>
                 <td>
-                  <div
-                    onClick={() => handleMakeInstructor(user)}
-                    className="flex justify-center cursor-pointer"
-                  >
+                  <div className="flex justify-center cursor-pointer">
                     {" "}
-                    <img src={instructorLogo} alt="instructorlogo" width={25} />
+                    <button
+                      onClick={() => handleMakeInstructor(user)}
+                      disabled={user.role === "instructor" ? true : false}
+                      className={`${
+                        user.role === "instructor" ? " opacity-40" : ""
+                      }`}
+                    >
+                      {" "}
+                      <img
+                        src={instructorLogo}
+                        alt="instructorlogo"
+                        width={25}
+                      />
+                    </button>
                   </div>
                 </td>
               </tr>
