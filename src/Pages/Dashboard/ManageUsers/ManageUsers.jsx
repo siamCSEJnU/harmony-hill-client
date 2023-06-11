@@ -5,14 +5,22 @@ import adminLogo from "../../../assets/Dashboard/admin-mk.png";
 import instructorLogo from "../../../assets/Dashboard/instructor-mk.png";
 import SectionTItle from "../../../Components/Shared/SectionTitle/SectionTItle";
 import Swal from "sweetalert2";
+import Loader from "../../../Components/Shared/Loader/Loader";
 
 const ManageUsers = () => {
   const [axiosSecure] = useAxiosSecure();
-  const { data: users = [], refetch } = useQuery(["users"], async () => {
+  const {
+    data: users = [],
+    refetch,
+    isLoading,
+  } = useQuery(["users"], async () => {
     const res = await axiosSecure.get("/users");
 
     return res.data;
   });
+  if (isLoading) {
+    return <Loader></Loader>;
+  }
 
   const handleMakeAdmin = (user) => {
     Swal.fire({
@@ -77,10 +85,10 @@ const ManageUsers = () => {
   return (
     <div>
       <Helmet>
-        <title>Harmony Hill | Manage Users</title>
+        <title>Harmony Hill | Dashboard | Manage Users</title>
       </Helmet>
       <SectionTItle heading={`Total Users : ${users.length}`}></SectionTItle>
-      <div className="overflow-x-auto  ml-5">
+      <div className="overflow-x-auto ml-20">
         <table className="table">
           {/* head */}
           <thead className="bg-sky-300">

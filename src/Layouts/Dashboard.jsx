@@ -47,7 +47,7 @@ const Dashboard = () => {
           <div className="drawer-content">
             {/* Page content here */}
 
-            <div className=" py-10 ">
+            <div className=" pb-10 ">
               {contentLoaded ? (
                 <Outlet />
               ) : (
@@ -69,7 +69,7 @@ const Dashboard = () => {
           </div>
           <div className="drawer-side">
             <label htmlFor="my-drawer" className="drawer-overlay"></label>
-            <ul className="menu p-4 w-80 h-full bg-sky-200 text-lg font-semibold text-emerald-700">
+            <ul className="menu p-4 w-80 h-full bg-sky-200 text-lg font-semibold text-emerald-700 space-y-4">
               {/* Sidebar content here */}
               {isAdmin && (
                 <>
@@ -77,14 +77,24 @@ const Dashboard = () => {
                     <img src={adminLogo} width={36} alt="adminLogo" />
                     <h2 className="text-2xl ">Admin Dashboard</h2>
                   </div>
-                  <NavLink>
+                  <NavLink
+                    to="/dashboard/manageClasses"
+                    className={({ isActive }) =>
+                      isActive ? "bg-slate-300 py-2 pl-2 " : ""
+                    }
+                  >
                     <div className="flex items-center gap-2">
                       <img src={manageClasses} width={28} alt="manageLogo" />
                       <h3>Manage Classes</h3>
                     </div>
                   </NavLink>
-                  <NavLink to="/dashboard/manageUsers">
-                    <div className="flex items-center gap-2 my-5">
+                  <NavLink
+                    to="/dashboard/manageUsers"
+                    className={({ isActive }) =>
+                      isActive ? "bg-slate-300 py-2 pl-2 " : ""
+                    }
+                  >
+                    <div className="flex items-center gap-2">
                       <img src={manageUsers} width={26} alt="manageLogo" />
                       <h3>Manage Users</h3>
                     </div>
@@ -97,13 +107,22 @@ const Dashboard = () => {
                     <img src={instructor} width={36} alt="instructorLogo" />
                     <h2 className="text-2xl ">Instructor Dashboard</h2>
                   </div>
-                  <NavLink to="/dashboard/addClasses">
+                  <NavLink
+                    to="/dashboard/addClasses"
+                    className={({ isActive }) =>
+                      isActive ? "bg-slate-300 py-2 pl-2 " : ""
+                    }
+                  >
                     <div className="flex items-center gap-2">
                       <img src={addClasses} width={28} alt="addClasses" />
                       <h3>Add Classes</h3>
                     </div>
                   </NavLink>
-                  <NavLink>
+                  <NavLink
+                    className={({ isActive }) =>
+                      isActive ? "bg-slate-300 py-2 pl-2 " : ""
+                    }
+                  >
                     <div className="flex items-center gap-2 my-5">
                       <img src={myClasses} width={26} alt="myclasses" />
                       <h3>My Classes</h3>
@@ -117,13 +136,21 @@ const Dashboard = () => {
                     <img src={student} width={36} alt="studentLogo" />
                     <h2 className="text-2xl ">Student Dashboard</h2>
                   </div>
-                  <NavLink>
+                  <NavLink
+                    className={({ isActive }) =>
+                      isActive ? "bg-slate-300 py-2 pl-2 " : ""
+                    }
+                  >
                     <div className="flex items-center gap-2">
                       <img src={selected} width={28} alt="selectedClasses" />
                       <h3>Selected Classes</h3>
                     </div>
                   </NavLink>
-                  <NavLink>
+                  <NavLink
+                    className={({ isActive }) =>
+                      isActive ? "bg-slate-300 py-2 pl-2 " : ""
+                    }
+                  >
                     <div className="flex items-center gap-2 my-5">
                       <img src={enrolled} width={26} alt="enrolledclasses" />
                       <h3>Enrolled Classes</h3>

@@ -7,14 +7,23 @@ const Navbar = () => {
   const { user, logOut } = useAuth();
   const navOptions = (
     <>
-      <NavLink to="/">
+      <NavLink
+        to="/"
+        className={({ isActive }) => (isActive ? "text-white  " : "")}
+      >
         <li>Home</li>
       </NavLink>
-      <NavLink to="/instructors">
+      <NavLink
+        to="/instructors"
+        className={({ isActive }) => (isActive ? "text-white  " : "")}
+      >
         <li>Instructors</li>
       </NavLink>
       <li>Classes</li>
-      <NavLink to="/dashboard">
+      <NavLink
+        to="/dashboard"
+        className={({ isActive }) => (isActive ? "text-white" : "")}
+      >
         {" "}
         <li>Dashboard</li>
       </NavLink>
@@ -31,7 +40,7 @@ const Navbar = () => {
       });
   };
   return (
-    <div className="py-2 bg-sky-300 w-full fixed z-10">
+    <div className=" bg-sky-300 w-full fixed z-10">
       <Container>
         <div className="navbar  ">
           <div className="navbar-start">
