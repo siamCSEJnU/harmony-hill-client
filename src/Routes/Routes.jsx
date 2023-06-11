@@ -13,6 +13,7 @@ import Instructors from "../Pages/Instructors/Instructors";
 import InstructorDetails from "../Pages/Instructors/InstructorDetails";
 import ManageClasses from "../Pages/Dashboard/ManageClasses/ManageClasses";
 import MyClasses from "../Pages/Dashboard/MyClasses/MyClasses";
+import AllClasses from "../Pages/AllClasses/AllClasses";
 
 export const router = createBrowserRouter([
   {
@@ -34,6 +35,10 @@ export const router = createBrowserRouter([
       {
         path: "/instructors",
         element: <Instructors></Instructors>,
+      },
+      {
+        path: "/allClasses",
+        element: <AllClasses></AllClasses>,
       },
       {
         path: "/instructors/:id",

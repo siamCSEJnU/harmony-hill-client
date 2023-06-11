@@ -94,8 +94,8 @@ const ManageUsers = () => {
           <thead className="bg-sky-300">
             <tr className="text-lg text-emerald-700">
               <th>#</th>
-              <th>User</th>
-              <th>Email</th>
+              <th className="text-center">User</th>
+              <th className="text-center">Email</th>
               <th>Role</th>
               <th>Make Admin</th>
               <th>Make Instructor</th>

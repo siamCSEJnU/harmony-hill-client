@@ -12,9 +12,9 @@ const MyClasses = () => {
   const {
     data: allClasses = [],
     isLoading,
-    refetch,
+    // refetch,
   } = useQuery(["classes"], async () => {
-    const response = await axiosSecure.get("/myClasses");
+    const response = await axiosSecure.get("/allClasses/instructor");
     return response.data;
   });
 
@@ -34,7 +34,8 @@ const MyClasses = () => {
           {/* head */}
           <thead className="bg-sky-300">
             <tr className="text-lg text-emerald-700 ">
-              <th>Class</th>
+              <td>#</td>
+              <th className="text-center">Class</th>
               <th>Available Seats</th>
               <th>Status</th>
               <th>Total Enrolled</th>
@@ -43,8 +44,9 @@ const MyClasses = () => {
             </tr>
           </thead>
           <tbody className="bg-emerald-300">
-            {myClasses.map((item) => (
+            {myClasses.map((item, index) => (
               <tr key={item._id}>
+                <td className="font-bold text-lg">{index + 1}</td>
                 <td>
                   <div className="flex items-center space-x-3">
                     <div className="avatar">

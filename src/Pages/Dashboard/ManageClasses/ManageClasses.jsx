@@ -16,11 +16,11 @@ const ManageClasses = () => {
   const [feedbackValue, setFeedbackValue] = useState("");
 
   const {
-    data: classes = [],
+    data: allClasses = [],
     isLoading,
     refetch,
   } = useQuery(["classes"], async () => {
-    const response = await axiosSecure.get("/classes");
+    const response = await axiosSecure.get("/allClasses/admin");
     return response.data;
   });
 
@@ -129,23 +129,23 @@ const ManageClasses = () => {
     setShowFeedbackModal(false);
   };
 
-  console.log(classes);
+  // console.log(classes);
   return (
     <div>
       <Helmet>
         <title>Harmony Hill | Dashboard | Manage Classes</title>
       </Helmet>
       <SectionTItle
-        heading={`Total Classes : ${classes.length} `}
+        heading={`Total Classes : ${allClasses.length} `}
       ></SectionTItle>
       <div className="overflow-x-auto space-x-3 ml-3">
         <table className="table">
           {/* head */}
           <thead className="bg-sky-300">
             <tr className="text-lg text-emerald-700 ">
-              <th>Class</th>
+              <th className="text-center">Class</th>
               <th>Instructor</th>
-              <th>Email</th>
+              <th className="text-center">Email</th>
               <th>Available Seats</th>
               <th>Price</th>
               <th>Status</th>
@@ -155,10 +155,10 @@ const ManageClasses = () => {
             </tr>
           </thead>
           <tbody className="bg-emerald-300">
-            {classes.map((item) => (
+            {allClasses.map((item) => (
               <tr key={item._id}>
                 <td>
-                  <div className="flex items-center space-x-3">
+                  <div className="flex items-center  space-x-3">
                     <div className="avatar">
                       <div className="mask mask-squircle w-12 h-12">
                         <img src={item.image} alt="classPhoto" />
@@ -169,8 +169,8 @@ const ManageClasses = () => {
                     </div>
                   </div>
                 </td>
-                <td className="font-semibold">{item.name}</td>
-                <td className="">{item.email}</td>
+                <td className="font-semibold text-center">{item.name}</td>
+                <td className="text-center">{item.email}</td>
                 <td className=" text-center font-semibold ">
                   {item.available}
                 </td>
