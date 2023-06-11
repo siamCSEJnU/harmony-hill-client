@@ -9,6 +9,7 @@ import ManageUsers from "../Pages/Dashboard/ManageUsers/ManageUsers";
 import AddClasses from "../Pages/Dashboard/AddClasses/AddClasses";
 import AdminRoute from "./AdminRoute";
 import InstructorRoute from "./InstructorRoute";
+import Instructors from "../Pages/Instructors/Instructors";
 
 export const router = createBrowserRouter([
   {
@@ -26,6 +27,10 @@ export const router = createBrowserRouter([
       {
         path: "/signup",
         element: <SignUp></SignUp>,
+      },
+      {
+        path: "/instructors",
+        element: <Instructors></Instructors>,
       },
     ],
   },

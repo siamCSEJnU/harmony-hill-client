@@ -1,21 +1,23 @@
 import Container from "../Container/Container";
 import logo from "../../../../public/logo/logo1.png";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
 
 const Navbar = () => {
   const { user, logOut } = useAuth();
   const navOptions = (
     <>
-      <Link to="/">
+      <NavLink to="/">
         <li>Home</li>
-      </Link>
-      <li>Instructors</li>
+      </NavLink>
+      <NavLink to="/instructors">
+        <li>Instructors</li>
+      </NavLink>
       <li>Classes</li>
-      <Link to="/dashboard">
+      <NavLink to="/dashboard">
         {" "}
         <li>Dashboard</li>
-      </Link>
+      </NavLink>
     </>
   );
 
