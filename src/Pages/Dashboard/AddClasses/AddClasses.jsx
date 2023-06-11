@@ -4,11 +4,14 @@ import { useForm } from "react-hook-form";
 import useAuth from "../../../hooks/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
+import { useState } from "react";
+import { ImSpinner4 } from "react-icons/im";
 
 const image_hosting_token = import.meta.env.VITE_IMAGE_UPLOAD_TOKEN;
 
 const AddClasses = () => {
   const { user } = useAuth();
+  const [loading, setLoading] = useState(false);
   const [axiosSecure] = useAxiosSecure();
 
   const image_hosting_url = `https://api.imgbb.com/1/upload?key=${image_hosting_token}`;
@@ -16,8 +19,10 @@ const AddClasses = () => {
   const { register, handleSubmit, reset } = useForm();
 
   const handleAddClass = (data) => {
+    setLoading(true);
+    console.log(data.classImage[0]);
     const formData = new FormData();
-    formData.append("image", data.image[0]);
+    formData.append("image", data.classImage[0]);
     fetch(image_hosting_url, {
       method: "POST",
       body: formData,
@@ -46,6 +51,7 @@ const AddClasses = () => {
           axiosSecure.post("/class", newClass).then((response) => {
             if (response.data.insertedId) {
               reset();
+              setLoading(false);
               Swal.fire({
                 position: "top-end",
                 icon: "success",
@@ -164,11 +170,20 @@ const AddClasses = () => {
           </div>
         </div>
         <div className="py-4 ">
-          <input
+          <button
             type="submit"
-            value="ADD CLASS"
             className=" btn w-full bg-emerald-400 focus:outline-0 border-emerald-400  "
-          />
+          >
+            {" "}
+            {loading ? (
+              <ImSpinner4
+                className="animate-spin m-auto text-blue-800"
+                size={32}
+              ></ImSpinner4>
+            ) : (
+              "ADD CLASS"
+            )}
+          </button>
         </div>
       </form>
     </div>

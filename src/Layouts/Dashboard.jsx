@@ -1,6 +1,6 @@
 import { Helmet } from "react-helmet-async";
 import Container from "../Components/Shared/Container/Container";
-import { NavLink, Outlet } from "react-router-dom";
+import { NavLink, Outlet, useLocation } from "react-router-dom";
 import adminLogo from "../assets/Dashboard/admin2.png";
 import manageClasses from "../assets/Dashboard/manageClasses.png";
 import manageUsers from "../assets/Dashboard/manageUsers.png";
@@ -14,8 +14,21 @@ import enrolled from "../assets/Dashboard/enrolled.png";
 import useAdmin from "../hooks/useAdmin";
 import useInstructor from "../hooks/useInstructor";
 import useStudent from "../hooks/useStudent";
+import { useEffect, useState } from "react";
+// import dashboardAnimation from "../assets/Dashboard/dashboard-animation.gif";
+import Lottie from "lottie-react";
+import dashAnim from "../Pages/Dashboard/dash-anim.json";
 
 const Dashboard = () => {
+  const [contentLoaded, setContentLoaded] = useState(false);
+  const location = useLocation();
+  useEffect(() => {
+    if (location.pathname === "/dashboard") {
+      setContentLoaded(false);
+    } else {
+      setContentLoaded(true);
+    }
+  }, [location]);
   // const isAdmin = true;
   // const isStudent = false;
   // const isInstructor = false;
@@ -34,8 +47,18 @@ const Dashboard = () => {
           <div className="drawer-content">
             {/* Page content here */}
 
-            <div className=" py-10">
-              <Outlet></Outlet>
+            <div className=" py-10 ">
+              {contentLoaded ? (
+                <Outlet />
+              ) : (
+                <div className="flex justify-center items-center">
+                  <Lottie
+                    className="w-3/5 "
+                    animationData={dashAnim}
+                    loop={true}
+                  />
+                </div>
+              )}
             </div>
             <label
               htmlFor="my-drawer"
