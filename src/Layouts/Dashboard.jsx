@@ -74,7 +74,7 @@ const Dashboard = () => {
                     <img src={instructor} width={36} alt="instructorLogo" />
                     <h2 className="text-2xl ">Instructor Dashboard</h2>
                   </div>
-                  <NavLink>
+                  <NavLink to="/dashboard/addClasses">
                     <div className="flex items-center gap-2">
                       <img src={addClasses} width={28} alt="addClasses" />
                       <h3>Add Classes</h3>
