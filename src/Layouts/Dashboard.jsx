@@ -138,6 +138,7 @@ const Dashboard = () => {
                     <h2 className="text-2xl ">Student Dashboard</h2>
                   </div>
                   <NavLink
+                    to="/dashboard/selectedClasses"
                     className={({ isActive }) =>
                       isActive ? "bg-slate-300 py-2 pl-2 " : ""
                     }
@@ -148,11 +149,12 @@ const Dashboard = () => {
                     </div>
                   </NavLink>
                   <NavLink
+                    to="/dashboard/enrolledClasses"
                     className={({ isActive }) =>
                       isActive ? "bg-slate-300 py-2 pl-2 " : ""
                     }
                   >
-                    <div className="flex items-center gap-2 my-5">
+                    <div className="flex items-center gap-2 ">
                       <img src={enrolled} width={26} alt="enrolledclasses" />
                       <h3>Enrolled Classes</h3>
                     </div>

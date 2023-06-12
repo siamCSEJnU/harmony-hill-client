@@ -1,18 +1,19 @@
 import { Navigate, useLocation } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
-import useInstructor from "../hooks/useInstructor";
+
 import Loader from "../Components/Shared/Loader/Loader";
+import useStudent from "../hooks/useStudent";
 
 const StudentRoute = ({ children }) => {
   const { user, loading } = useAuth();
-  const [isInstructor, isInstructorLoading] = useInstructor();
+  const [isStudent, isStudentLoading] = useStudent();
   const location = useLocation();
 
-  if (loading || isInstructorLoading) {
+  if (loading || isStudentLoading) {
     return <Loader></Loader>;
   }
 
-  if (user && isInstructor) {
+  if (user && isStudent) {
     return children;
   }
   return <Navigate to="/" state={{ from: location }} replace></Navigate>;
