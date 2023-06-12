@@ -19,6 +19,7 @@ const ClassItem = ({ item }) => {
     const selectedClass = {
       name: item.class,
       instructor: name,
+      studentEmail: user?.email,
       image,
       email,
       price,
@@ -42,14 +43,14 @@ const ClassItem = ({ item }) => {
 
   return (
     <div
-      className={` p-3  rounded-md ${
+      className={` p-3 group rounded-md ${
         item?.available == 0 ? "bg-red-400" : "bg-blue-100"
       }`}
     >
       <img
         src={item.image}
         alt="instructorPhoto"
-        className="w-full rounded-md mb-3 "
+        className="w-full rounded-md mb-3  group-hover:scale-105"
       />
       <div className=" font-semibold text-lg ">
         <div className="h-28 overflow-hidden space-y-1   ">
