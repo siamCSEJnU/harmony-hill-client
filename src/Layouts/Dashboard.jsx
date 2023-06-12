@@ -15,7 +15,9 @@ import useAdmin from "../hooks/useAdmin";
 import useInstructor from "../hooks/useInstructor";
 import useStudent from "../hooks/useStudent";
 import { useEffect, useState } from "react";
-// import dashboardAnimation from "../assets/Dashboard/dashboard-animation.gif";
+import instructors from "../../src/assets/Dashboard/instructors2.png";
+import musicClass from "../../src/assets/Dashboard/music-class.png";
+
 import Lottie from "lottie-react";
 import dashAnim from "../Pages/Dashboard/dash-anim.json";
 
@@ -53,7 +55,7 @@ const Dashboard = () => {
               ) : (
                 <div className="flex justify-center items-center">
                   <Lottie
-                    className="w-3/5 mt-5"
+                    className="w-2/5 mt-40"
                     animationData={dashAnim}
                     loop={true}
                   />
@@ -165,9 +167,23 @@ const Dashboard = () => {
               <div className="divider"></div>
               <NavLink to="/">
                 {" "}
-                <div className="flex items-center gap-2 my-5">
+                <div className="flex items-center gap-2 mt-5">
                   <img src={home} width={28} alt="manageLogo" />
                   <h3>Home</h3>
+                </div>
+              </NavLink>
+              <NavLink to="/allClasses">
+                {" "}
+                <div className="flex items-center gap-2">
+                  <img src={musicClass} width={28} alt="manageLogo" />
+                  <h3>All Classes</h3>
+                </div>
+              </NavLink>
+              <NavLink to="/instructors">
+                {" "}
+                <div className="flex items-center gap-2">
+                  <img src={instructors} width={28} alt="manageLogo" />
+                  <h3>All Instructors</h3>
                 </div>
               </NavLink>
             </ul>

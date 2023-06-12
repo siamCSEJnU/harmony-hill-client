@@ -6,6 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 import deleteIcon from "../../../assets/Dashboard/delete.png";
 import paymentIcon from "../../../assets/Dashboard/payment.png";
 import Swal from "sweetalert2";
+import { NavLink } from "react-router-dom";
 
 const SelectedClasses = () => {
   const [axiosSecure] = useAxiosSecure();
@@ -52,6 +53,7 @@ const SelectedClasses = () => {
             Swal.fire({
               icon: "error",
               title: "Oops...",
+              timer: 1000,
               text: `Something went wrong while deleting the class! Error :${
                 error ? error : ""
               }`,
@@ -115,9 +117,12 @@ const SelectedClasses = () => {
                 </td>
                 <td>
                   <div className="text-center">
-                    <button>
-                      <img src={paymentIcon} className="w-7 " alt="edit" />
-                    </button>
+                    <NavLink to="/dashboard/payment">
+                      {" "}
+                      <button>
+                        <img src={paymentIcon} className="w-7 " alt="edit" />
+                      </button>
+                    </NavLink>
                   </div>
                 </td>
               </tr>

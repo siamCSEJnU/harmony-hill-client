@@ -2,13 +2,14 @@ import { useNavigate } from "react-router-dom";
 import useAuth from "./useAuth";
 import { useEffect } from "react";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 const axiosSecure = axios.create({
   baseURL: "http://localhost:5000",
 });
 
 const useAxiosSecure = () => {
-  const { logOut } = useAuth();
+  const { logOut, setLoading } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -30,12 +31,19 @@ const useAxiosSecure = () => {
           (error.response.status === 401 || error.response.status === 403)
         ) {
           await logOut();
+          setLoading(false);
           navigate("/login");
+          Swal.fire({
+            icon: "error",
+            title: "User Restricted",
+            text: "Only students are allowed to select classes",
+            timer: 1500,
+          });
         }
         return Promise.reject(error);
       }
     );
-  }, [logOut, navigate]);
+  }, [logOut, navigate, setLoading]);
 
   return [axiosSecure];
 };
