@@ -55,7 +55,7 @@ const MyClasses = () => {
                       </div>
                     </div>
                     <div>
-                      <div className="font-bold text-lg">{item.class}</div>
+                      <div className="font-bold text-lg">{item.name}</div>
                     </div>
                   </div>
                 </td>
@@ -73,7 +73,7 @@ const MyClasses = () => {
                 >
                   {item.status}
                 </td>
-                <td className="text-center text-lg">
+                <td className="text-center font-semibold text-lg">
                   {item?.enrolled ? item.enrolled : 0}
                 </td>
                 <td className=" font-semibold text-center ">

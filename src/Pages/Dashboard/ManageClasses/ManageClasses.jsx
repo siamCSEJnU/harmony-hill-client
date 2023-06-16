@@ -50,7 +50,7 @@ const ManageClasses = () => {
               Swal.fire({
                 position: "top-end",
                 icon: "success",
-                title: `${item.class} accepted!!`,
+                title: `${item.name} accepted!!`,
                 showConfirmButton: false,
                 timer: 1500,
               });
@@ -82,7 +82,7 @@ const ManageClasses = () => {
               Swal.fire({
                 position: "top-end",
                 icon: "success",
-                title: `${item.class} rejected!!`,
+                title: `${item.name} rejected!!`,
                 showConfirmButton: false,
                 timer: 1500,
               });
@@ -165,11 +165,11 @@ const ManageClasses = () => {
                       </div>
                     </div>
                     <div>
-                      <div className="font-bold">{item.class}</div>
+                      <div className="font-bold">{item.name}</div>
                     </div>
                   </div>
                 </td>
-                <td className="font-semibold text-center">{item.name}</td>
+                <td className="font-semibold text-center">{item.instructor}</td>
                 <td className="text-center">{item.email}</td>
                 <td className=" text-center font-semibold ">
                   {item.available}
@@ -253,7 +253,7 @@ const ManageClasses = () => {
         <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
           <div className="bg-sky-200 rounded-lg p-4">
             <h2 className="text-xl font-bold mb-4">
-              Send Feedback for {selectedClass.class}
+              Send Feedback for {selectedClass.name}
             </h2>
             <textarea
               className="w-full h-32 border border-gray-300 outline-0 rounded-lg p-2 mb-4"

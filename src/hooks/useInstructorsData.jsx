@@ -1,7 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
+import Loader from "../Components/Shared/Loader/Loader";
 
 const useInstructorsData = () => {
-  const { data } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ["instructors"],
     queryFn: async () => {
       const response = await fetch("http://localhost:5000/instructors");
@@ -25,12 +26,12 @@ const useInstructorsData = () => {
       email: instructor.email,
       image: instructor.photoURL,
       classesInfo: classesTaken,
-      classesTaken: classesTaken.map((classItem) => classItem.class),
+      classesTaken: classesTaken.map((classItem) => classItem.name),
       totalClasses: classesTaken.length,
     };
   });
   //   console.log(instructorWithClasses);
-  return instructorWithClasses;
+  return [instructorWithClasses, isLoading];
 };
 
 export default useInstructorsData;

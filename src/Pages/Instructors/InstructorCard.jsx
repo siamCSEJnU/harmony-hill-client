@@ -2,7 +2,7 @@ import { NavLink } from "react-router-dom";
 
 const InstructorCard = ({ item }) => {
   return (
-    <div className="bg-emerald-300 p-3 rounded-md space-y-3 group">
+    <div className="bg-emerald-300 p-3 rounded-md space-y-3 group shadow-xl shadow-emerald-400">
       <img
         src={item.image}
         alt="instructorPhoto"
@@ -16,7 +16,7 @@ const InstructorCard = ({ item }) => {
       <div className="text-center py-3">
         <NavLink to={`/instructors/${item.id}`}>
           {" "}
-          <button className="btn bg-sky-400 outline-0 border-sky-400">
+          <button className="btn bg-sky-400 outline-0 border-sky-400 font-bold text-base ">
             See Classes
           </button>
         </NavLink>

@@ -18,6 +18,9 @@ import StudentRoute from "./StudentRoute";
 import SelectedClasses from "../Pages/Dashboard/SelectedClasses/SelectedClasses";
 import EnrolledClasses from "../Pages/Dashboard/EnrolledClasses/EnrolledClasses";
 import Payment from "../Pages/Dashboard/Payment/Payment";
+import ErrorPage from "../Pages/ErrroPage/ErrorPage";
+import Blogs from "../Pages/Blogs/Blogs";
+import PaymentHistory from "../Pages/Dashboard/Payment/PaymentHistory/PaymentHistory";
 
 export const router = createBrowserRouter([
   {
@@ -39,6 +42,10 @@ export const router = createBrowserRouter([
       {
         path: "/instructors",
         element: <Instructors></Instructors>,
+      },
+      {
+        path: "/blogs",
+        element: <Blogs></Blogs>,
       },
       {
         path: "/allClasses",
@@ -118,7 +125,23 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: "payment",
+        path: "paymentHistory",
+        element: (
+          <StudentRoute>
+            <PaymentHistory></PaymentHistory>
+          </StudentRoute>
+        ),
+      },
+      {
+        path: "payment/:className/:classId",
+        element: (
+          <StudentRoute>
+            <Payment></Payment>
+          </StudentRoute>
+        ),
+      },
+      {
+        path: "payment/all",
         element: (
           <StudentRoute>
             <Payment></Payment>
@@ -126,5 +149,9 @@ export const router = createBrowserRouter([
         ),
       },
     ],
+  },
+  {
+    path: "*",
+    element: <ErrorPage></ErrorPage>,
   },
 ]);

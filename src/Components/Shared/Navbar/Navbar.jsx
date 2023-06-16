@@ -25,14 +25,22 @@ const Navbar = () => {
       >
         <li>Instructors</li>
       </NavLink>
-
       <NavLink
-        to="/dashboard"
-        className={({ isActive }) => (isActive ? "text-white" : "")}
+        to="/blogs"
+        className={({ isActive }) => (isActive ? "text-white  " : "")}
       >
-        {" "}
-        <li>Dashboard</li>
+        <li>Blogs</li>
       </NavLink>
+
+      {user && (
+        <NavLink
+          to="/dashboard"
+          className={({ isActive }) => (isActive ? "text-white" : "")}
+        >
+          {" "}
+          <li>Dashboard</li>
+        </NavLink>
+      )}
     </>
   );
 
@@ -46,9 +54,9 @@ const Navbar = () => {
       });
   };
   return (
-    <div className=" bg-sky-300 w-full fixed z-10">
+    <div className=" bg-sky-300 opacity-80 text-black w-full fixed z-10">
       <Container>
-        <div className="navbar  ">
+        <div className="navbar ">
           <div className="navbar-start">
             <div className="dropdown">
               <label tabIndex={0} className="btn btn-ghost lg:hidden">
@@ -75,8 +83,8 @@ const Navbar = () => {
               </ul>
             </div>
             <Link to="/">
-              <div className="flex justify-center items-center gap-2">
-                <h2 className="order-2 text-4xl font-bold text-sky-950 ">
+              <div className="flex justify-center items-center gap-2 ">
+                <h2 className="order-2 text-4xl font-bold text-black ">
                   Harmony <br /> Hill
                 </h2>
                 <img src={logo} height="80" width="80" alt="logo" />
@@ -104,14 +112,14 @@ const Navbar = () => {
 
                 <button
                   onClick={handleLogOut}
-                  className="btn bg-emerald-400 border-emerald-400"
+                  className="btn  bg-emerald-400 border-emerald-400 text-base font-bold text-black"
                 >
                   LogOut
                 </button>
               </div>
             ) : (
               <Link to="/login">
-                <button className="btn bg-emerald-400 border-emerald-400">
+                <button className="btn bg-emerald-400 border-emerald-400 text-base text-black font-bold">
                   Login
                 </button>
               </Link>

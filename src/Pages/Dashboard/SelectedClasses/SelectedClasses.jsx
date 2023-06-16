@@ -1,27 +1,15 @@
 import { Helmet } from "react-helmet-async";
-import SectionTItle from "../../../Components/Shared/SectionTitle/SectionTItle";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
-import useAuth from "../../../hooks/useAuth";
-import { useQuery } from "@tanstack/react-query";
 import deleteIcon from "../../../assets/Dashboard/delete.png";
 import paymentIcon from "../../../assets/Dashboard/payment.png";
 import Swal from "sweetalert2";
 import { NavLink } from "react-router-dom";
+import useSelectedClasses from "../../../hooks/useSelectedClasses";
 
 const SelectedClasses = () => {
   const [axiosSecure] = useAxiosSecure();
-  const { user } = useAuth();
-  const { data: selectedClasses = [], refetch } = useQuery(
-    ["selectedClasses"],
-    async () => {
-      const respone = await axiosSecure.get("/selectedClasses");
-      return respone.data;
-    }
-  );
-  // console.log(selectedClasses);
-  const mySelectedClasses = selectedClasses.filter(
-    (item) => item.studentEmail == user.email
-  );
+
+  const [mySelectedClasses, refetch] = useSelectedClasses();
 
   const handleDelete = (Id) => {
     Swal.fire({
@@ -68,7 +56,17 @@ const SelectedClasses = () => {
       <Helmet>
         <title>Harmony Hill | Dashboard | Selected Classes</title>
       </Helmet>
-      <SectionTItle heading={`My Selected Classes `}></SectionTItle>
+
+      <div className="flex justify-end items-center gap-80 my-7">
+        <h2 className="text-3xl  text-sky-950 font-bold">My Selected Class</h2>
+        <NavLink to="/dashboard/payment/all">
+          {" "}
+          <button className="btn btn-sm bg-blue-700 text-slate-100">
+            Pay All
+          </button>
+        </NavLink>
+      </div>
+
       <div className="overflow-x-auto space-x-3 ml-10">
         <table className="table">
           {/* head */}
@@ -76,11 +74,11 @@ const SelectedClasses = () => {
             <tr className="text-lg text-emerald-700 ">
               <td>#</td>
               <th className="text-center">Class</th>
-              <th>Instructor</th>
+              <th className="text-center">Instructor</th>
               <th className="text-center">Contact</th>
-              <th>Available</th>
-              <th>Delete</th>
-              <th>Pay</th>
+              <th className="text-center">Status</th>
+              <th className="text-center">Delete</th>
+              <th className="text-center">Pay</th>
             </tr>
           </thead>
           <tbody className="bg-emerald-300">
@@ -105,8 +103,24 @@ const SelectedClasses = () => {
                 <td className="font-semibold text-center text-base">
                   {item.email}
                 </td>
-                <td className="font-semibold text-center text-xl">
-                  {item.available}
+                <td
+                  className={`font-semibold text-center text-base ${
+                    item.status == "pending"
+                      ? "text-green-600"
+                      : item.status == "accepted"
+                      ? "text-blue-800"
+                      : item.status == "denied"
+                      ? "text-red-600"
+                      : ""
+                  } `}
+                >
+                  {item.status == "pending"
+                    ? "keep waiting"
+                    : item.status == "accepted"
+                    ? "starting soon"
+                    : item.status == "denied"
+                    ? "not available"
+                    : ""}
                 </td>
                 <td>
                   <div className="text-center">
@@ -117,7 +131,7 @@ const SelectedClasses = () => {
                 </td>
                 <td>
                   <div className="text-center">
-                    <NavLink to="/dashboard/payment">
+                    <NavLink to={`/dashboard/payment/${item.name}/${item._id}`}>
                       {" "}
                       <button>
                         <img src={paymentIcon} className="w-7 " alt="edit" />

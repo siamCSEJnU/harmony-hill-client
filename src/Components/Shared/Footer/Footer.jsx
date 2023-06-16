@@ -7,7 +7,7 @@ const Footer = () => {
     // <div className="bg-sky-100 py-5 fixed bottom-0 left-0 right-0 ">
     <div className="bg-sky-100 py-5  ">
       <Container>
-        <div className="mb-4  font-semibold  grid grid-cols-2 md:grid-cols-4">
+        <div className="mb-4  font-semibold gap-5 md:gap-0 grid grid-cols-2 md:grid-cols-4">
           <div>
             <h2 className="text-lg font-bold">Services</h2>
             <ul>
@@ -44,7 +44,7 @@ const Footer = () => {
       </Container>
       <div className="  border-sky-300 border-dashed border-y"> </div>
       <Container>
-        <div className="mt-3 flex justify-between items-center">
+        <div className="mt-7 md:mt-5 flex justify-between items-center">
           <div className="flex  items-center gap-2">
             <h2 className="order-2 text-3xl font-bold text-sky-950 ">
               Harmony <br /> Hill

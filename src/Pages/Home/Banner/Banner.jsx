@@ -6,6 +6,7 @@ import slide4 from "../../../assets/slider/slide4.jpg";
 import slide5 from "../../../assets/slider/slide1.jpg";
 import slide6 from "../../../assets/slider/slide8.jpg";
 import Container from "../../../Components/Shared/Container/Container";
+import { Link } from "react-router-dom";
 const Banner = () => {
   return (
     <Container>
@@ -33,9 +34,12 @@ const Banner = () => {
               create beautiful melodies. Join us at Harmony Hill and let the
               music inspire you.
             </p>
-            <button className="btn bg-emerald-400 border-emerald-400">
-              Learn More
-            </button>
+            <Link to="/blogs">
+              {" "}
+              <button className="btn bg-emerald-400 border-emerald-400">
+                Learn More
+              </button>
+            </Link>
           </div>
         </div>
         <div>
@@ -55,9 +59,12 @@ const Banner = () => {
               create beautiful melodies. Join us at Harmony Hill and let the
               music inspire you.
             </p>
-            <button className="btn bg-emerald-400 border-emerald-400">
-              Learn More
-            </button>
+            <Link to="/blogs">
+              {" "}
+              <button className="btn bg-emerald-400 border-emerald-400">
+                Learn More
+              </button>
+            </Link>
           </div>
         </div>
         <div>
@@ -77,9 +84,13 @@ const Banner = () => {
               create beautiful melodies. Join us at Harmony Hill and let the
               music inspire you.
             </p>
-            <button className="btn bg-emerald-400 border-emerald-400">
-              Learn More
-            </button>
+            <Link to="/blogs">
+              {" "}
+              <button className="btn bg-emerald-400 border-emerald-400">
+                Learn More
+              </button>
+            </Link>
+            >
           </div>
         </div>
         <div>
@@ -99,9 +110,12 @@ const Banner = () => {
               create beautiful melodies. Join us at Harmony Hill and let the
               music inspire you.
             </p>
-            <button className="btn bg-emerald-400 border-emerald-400">
-              Learn More
-            </button>
+            <Link to="/blogs">
+              {" "}
+              <button className="btn bg-emerald-400 border-emerald-400">
+                Learn More
+              </button>
+            </Link>
           </div>
         </div>
         <div>
@@ -121,9 +135,12 @@ const Banner = () => {
               create beautiful melodies. Join us at Harmony Hill and let the
               music inspire you.
             </p>
-            <button className="btn bg-emerald-400 border-emerald-400">
-              Learn More
-            </button>
+            <Link to="/blogs">
+              {" "}
+              <button className="btn bg-emerald-400 border-emerald-400">
+                Learn More
+              </button>
+            </Link>
           </div>
         </div>
       </Carousel>

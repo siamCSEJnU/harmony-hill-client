@@ -1,25 +1,19 @@
 import { Helmet } from "react-helmet-async";
 import SectionTItle from "../../Components/Shared/SectionTitle/SectionTItle";
-import { useQuery } from "@tanstack/react-query";
 import Loader from "../../Components/Shared/Loader/Loader";
 import Container from "../../Components/Shared/Container/Container";
 import ClassItem from "./ClassItem";
+import useAllClasses from "../../hooks/useAllClasses";
 
 const AllClasses = () => {
-  const { data: allClasses = [], isLoading } = useQuery(
-    ["allClasses"],
-    async () => {
-      const response = await fetch("http://localhost:5000/allClasses");
-      return response.json();
-    }
-  );
+  const [allClasses, isLoading] = useAllClasses();
 
   if (isLoading) {
     return <Loader></Loader>;
   }
 
   return (
-    <div>
+    <div className="mb-10">
       <Helmet>
         {" "}
         <title>Harmony Hill | All Classes</title>

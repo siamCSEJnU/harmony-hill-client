@@ -20,7 +20,7 @@ const AddClasses = () => {
 
   const handleAddClass = (data) => {
     setLoading(true);
-    console.log(data.classImage[0]);
+    // console.log(data.classImage[0]);
     const formData = new FormData();
     formData.append("image", data.classImage[0]);
     fetch(image_hosting_url, {
@@ -40,11 +40,11 @@ const AddClasses = () => {
           } = data;
 
           const newClass = {
-            class: className,
-            name: instructorName,
+            name: className,
+            instructor: instructorName,
             email: instructorEmail,
             image: imgURL,
-            available,
+            available: parseFloat(available),
             price: parseFloat(price),
             status: "pending",
           };

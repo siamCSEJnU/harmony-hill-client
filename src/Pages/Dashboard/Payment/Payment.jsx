@@ -1,5 +1,4 @@
 import { Helmet } from "react-helmet-async";
-import SectionTItle from "../../../Components/Shared/SectionTitle/SectionTItle";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import CheckOutForm from "./CheckOutForm/CheckOutForm";

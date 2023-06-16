@@ -5,7 +5,7 @@ const ClassCard = ({ item }) => {
       <img src={item.image} alt="classPhoto" className="w-96 rounded-md  " />
       <div className="space-y-2 font-semibold text-lg ">
         <h3 className="text-3xl font-bold text-center text-blue-500 mb-5">
-          {item.class}
+          {item.name}
         </h3>
         <p>Price : ${item.price}</p>
         <p>Available Seats : {item.available}</p>
